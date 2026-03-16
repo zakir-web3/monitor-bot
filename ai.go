@@ -25,8 +25,8 @@ type chatResponse struct {
 	} `json:"choices"`
 }
 
-func interpretRelease(token string, r *Release) (string, error) {
-	prompt := fmt.Sprintf(userPromptTmpl, r.TagName, r.Body)
+func interpretRelease(token string, repo string, r *Release) (string, error) {
+	prompt := fmt.Sprintf(userPromptTmpl, repo, r.TagName, r.Body)
 
 	reqBody := chatRequest{
 		Model: modelName,

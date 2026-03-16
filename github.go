@@ -13,8 +13,8 @@ type Release struct {
 	HTMLURL string `json:"html_url"`
 }
 
-func fetchLatestRelease() (*Release, error) {
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", githubRepo)
+func fetchLatestRelease(repo string) (*Release, error) {
+	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
