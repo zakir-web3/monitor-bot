@@ -67,7 +67,7 @@ func writeLastVersion(version string) error {
 }
 
 func formatMessage(r *Release, summary string) string {
-	msg := fmt.Sprintf("<b>go-ethereum 发布新版本 %s</b>\n\n%s\n\n<a href=\"%s\">查看完整发布说明</a>",
+	msg := fmt.Sprintf("go-ethereum 发布新版本 %s\n\n%s\n\n查看完整发布说明：%s",
 		r.TagName, summary, r.HTMLURL)
 	// Telegram message limit is 4096 chars
 	if len([]rune(msg)) > 4000 {

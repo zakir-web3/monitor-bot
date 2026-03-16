@@ -13,7 +13,6 @@ func sendTelegram(token, chatID, text string) error {
 	body, err := json.Marshal(map[string]any{
 		"chat_id":                  chatID,
 		"text":                     text,
-		"parse_mode":               "HTML",
 		"disable_web_page_preview": true,
 	})
 	if err != nil {
