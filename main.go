@@ -19,8 +19,12 @@ func main() {
 	pagesRepo := os.Getenv("GITHUB_REPOSITORY")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
+	exitCode := run(ctx, modelsToken, telegramToken, chatID, githubToken, pagesRepo)
+	cancel()
+	os.Exit(exitCode)
+}
 
+func run(ctx context.Context, modelsToken, telegramToken, chatID, githubToken, pagesRepo string) int {
 	versions := readVersions()
 	var hasError bool
 
@@ -107,15 +111,16 @@ func main() {
 
 	if err := writeVersions(versions); err != nil {
 		slog.Error("write versions failed", "error", err)
-		os.Exit(1)
+		return 1
 	}
 
 	if hasError {
 		slog.Error("completed with errors")
-		os.Exit(1)
+		return 1
 	}
 
 	slog.Info("done")
+	return 0
 }
 
 func mustEnv(key string) string {

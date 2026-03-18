@@ -3,14 +3,14 @@ name: AI Reads
 on:
   schedule:
     - cron: '18 0 * * *'  # daily at 08:18 CST
-  workflow_dispatch:       # allow manual trigger
+  workflow_dispatch:
 
 concurrency:
-  group: monitor
+  group: ai-reads
   cancel-in-progress: false
 
 jobs:
-  monitor:
+  ai-reads:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,9 +20,9 @@ jobs:
 
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.23'
+          go-version: '1.26'
 
-      - name: Run monitor
+      - name: Run ai-reads
         env:
           GH_PAT_CLASSIC_TOKEN: ${{ secrets.GH_PAT_CLASSIC_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

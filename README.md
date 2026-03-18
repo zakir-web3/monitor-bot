@@ -1,5 +1,9 @@
 # AI Reads
 
+[![Go Version](https://img.shields.io/github/go-mod/go-version/zakir-web3/ai-reads)](https://go.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/Deep%20Analysis-GitHub%20Pages-brightgreen)](https://zakir-web3.github.io/ai-reads/)
+
 An AI-powered release interpreter that monitors open-source repositories, generates intelligent analysis, and delivers them through two channels:
 
 - **Telegram** — concise notification for quick awareness
@@ -35,7 +39,7 @@ Edit the `githubRepos` list in `config.go` to add or remove repositories.
 
 ### Prerequisites
 
-- Go 1.23 or later
+- Go 1.26 or later
 - A [GitHub Models](https://github.com/marketplace/models) API token
 - A Telegram Bot (create one via [@BotFather](https://t.me/BotFather))
 - The chat ID of your target Telegram group or channel
@@ -68,7 +72,7 @@ Go to **Settings > Pages**, set source to `Deploy from a branch`, and select `gh
 
 The workflow runs automatically at **08:18 CST (Beijing time)** every day. You can also trigger it manually from the **Actions** tab.
 
-To change the schedule, edit the cron expression in `.github/workflows/monitor.yml`:
+To change the schedule, edit the cron expression in `.github/workflows/ai-reads.yml`:
 
 ```yaml
 on:
@@ -99,7 +103,7 @@ ai-reads/
 ├── pages.go        # Publish deep analysis to GitHub Pages
 ├── client.go       # Shared HTTP client and retry logic
 └── .github/workflows/
-    └── monitor.yml # Scheduled GitHub Actions workflow
+    └── ai-reads.yml # Scheduled GitHub Actions workflow
 ```
 
 ## Customization
@@ -107,7 +111,7 @@ ai-reads/
 - **Tracked repos** — Edit the `githubRepos` list in `config.go`.
 - **AI model / prompts** — Edit `modelName`, `systemPrompt`, `deepSystemPrompt` and prompt templates in `config.go`.
 - **Message format** — Modify `msgHeader` / `msgFooter` in `config.go`. Telegram messages use HTML format.
-- **Schedule** — Adjust the cron expression in `.github/workflows/monitor.yml`.
+- **Schedule** — Adjust the cron expression in `.github/workflows/ai-reads.yml`.
 
 ## License
 
