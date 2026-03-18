@@ -50,10 +50,9 @@ func main() {
 		}
 		slices.Reverse(newReleases)
 
-		if len(knownSet) == 0 && len(newReleases) > 0 {
-			slog.Info("bootstrap: recording releases without notification", "repo", repo, "count", len(releases))
-			versions[repo] = sortedKeys(updatedTags)
-			continue
+		if len(knownSet) == 0 && len(newReleases) > 1 {
+			slog.Info("bootstrap: only notifying the latest release", "repo", repo, "total", len(newReleases))
+			newReleases = newReleases[len(newReleases)-1:]
 		}
 
 		if len(newReleases) == 0 {
