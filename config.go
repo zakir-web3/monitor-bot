@@ -29,6 +29,10 @@ const (
 
 const telegramMsgLimit = 4000
 
+// ---- GitHub releases pagination ----
+
+const releasesPerPage = 20
+
 // ---- Version file ----
 
 const versionFile = "last_versions.json"

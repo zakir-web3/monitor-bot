@@ -8,14 +8,15 @@ import (
 )
 
 type Release struct {
-	TagName string `json:"tag_name"`
-	Name    string `json:"name"`
-	Body    string `json:"body"`
-	HTMLURL string `json:"html_url"`
+	TagName    string `json:"tag_name"`
+	Name       string `json:"name"`
+	Body       string `json:"body"`
+	HTMLURL    string `json:"html_url"`
+	Prerelease bool   `json:"prerelease"`
 }
 
-func fetchLatestRelease(ctx context.Context, repo, token string) (*Release, error) {
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
+func fetchRecentReleases(ctx context.Context, repo, token string, perPage int) ([]*Release, error) {
+	url := fmt.Sprintf("https://api.github.com/repos/%s/releases?per_page=%d", repo, perPage)
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -35,9 +36,9 @@ func fetchLatestRelease(ctx context.Context, repo, token string) (*Release, erro
 		return nil, fmt.Errorf("github api returned status %d", resp.StatusCode)
 	}
 
-	var release Release
-	if err := json.NewDecoder(resp.Body).Decode(&release); err != nil {
+	var releases []*Release
+	if err := json.NewDecoder(resp.Body).Decode(&releases); err != nil {
 		return nil, err
 	}
-	return &release, nil
+	return releases, nil
 }
