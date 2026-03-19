@@ -2,7 +2,7 @@ name: AI Reads
 
 on:
   schedule:
-    - cron: '18 0 * * *'  # daily at 08:18 CST
+    - cron: '42 2 * * *'  # daily at 10:42 CST (off-peak)
   workflow_dispatch:
 
 concurrency:
