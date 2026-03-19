@@ -91,17 +91,32 @@ func run(ctx context.Context, modelsToken, telegramToken, chatID, githubToken, p
 			if pagesRepo == "" || githubToken == "" {
 				slog.Info("skipping pages publish", "reason", "GITHUB_REPOSITORY or GITHUB_TOKEN not set")
 			} else {
-				deepSummary, err := retry(ctx, "deep-interpret", func(ctx context.Context) (string, error) {
+				// Chinese version
+				deepZH, err := retry(ctx, "deep-interpret-zh", func(ctx context.Context) (string, error) {
 					return interpretReleaseDeep(ctx, modelsToken, repo, release)
 				})
 				if err != nil {
-					slog.Error("deep interpret failed", "repo", repo, "tag", release.TagName, "error", err)
-				} else if err := retryDo(ctx, "publish-pages", func(ctx context.Context) error {
-					return publishToPages(ctx, githubToken, pagesRepo, repo, release, deepSummary)
+					slog.Error("deep interpret zh failed", "repo", repo, "tag", release.TagName, "error", err)
+				} else if err := retryDo(ctx, "publish-pages-zh", func(ctx context.Context) error {
+					return publishToPages(ctx, githubToken, pagesRepo, repo, release, deepZH, "zh")
 				}); err != nil {
-					slog.Error("publish to pages failed", "repo", repo, "tag", release.TagName, "error", err)
+					slog.Error("publish to pages zh failed", "repo", repo, "tag", release.TagName, "error", err)
 				} else {
-					slog.Info("published to pages", "repo", repo, "tag", release.TagName)
+					slog.Info("published to pages", "repo", repo, "tag", release.TagName, "lang", "zh")
+				}
+
+				// English version
+				deepEN, err := retry(ctx, "deep-interpret-en", func(ctx context.Context) (string, error) {
+					return interpretReleaseDeepEN(ctx, modelsToken, repo, release)
+				})
+				if err != nil {
+					slog.Error("deep interpret en failed", "repo", repo, "tag", release.TagName, "error", err)
+				} else if err := retryDo(ctx, "publish-pages-en", func(ctx context.Context) error {
+					return publishToPages(ctx, githubToken, pagesRepo, repo, release, deepEN, "en")
+				}); err != nil {
+					slog.Error("publish to pages en failed", "repo", repo, "tag", release.TagName, "error", err)
+				} else {
+					slog.Info("published to pages", "repo", repo, "tag", release.TagName, "lang", "en")
 				}
 			}
 		}

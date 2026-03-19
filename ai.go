@@ -75,6 +75,11 @@ func interpretRelease(ctx context.Context, token string, repo string, r *Release
 }
 
 func interpretReleaseDeep(ctx context.Context, token string, repo string, r *Release) (string, error) {
-	prompt := fmt.Sprintf(deepUserPromptTmpl, repo, r.TagName, r.Body)
-	return callAI(ctx, token, deepSystemPrompt, prompt)
+	prompt := fmt.Sprintf(deepUserPromptTmplZH, repo, r.TagName, r.Body)
+	return callAI(ctx, token, deepSystemPromptZH, prompt)
+}
+
+func interpretReleaseDeepEN(ctx context.Context, token string, repo string, r *Release) (string, error) {
+	prompt := fmt.Sprintf(deepUserPromptTmplEN, repo, r.TagName, r.Body)
+	return callAI(ctx, token, deepSystemPromptEN, prompt)
 }

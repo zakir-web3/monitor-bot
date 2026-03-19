@@ -5,6 +5,7 @@ package main
 var githubRepos = []string{
 	"ethereum/go-ethereum",
 	"bnb-chain/bsc",
+	"openclaw/openclaw",
 }
 
 // ---- AI model settings ----
@@ -28,11 +29,11 @@ const (
 // ---- Deep analysis AI settings (for GitHub Pages) ----
 
 const (
-	deepSystemPrompt = `你是一位资深的区块链基础设施工程师和技术分析师，拥有丰富的节点运维和底层协议开发经验。
+	deepSystemPromptZH = `你是一位资深的区块链基础设施工程师和技术分析师，拥有丰富的节点运维和底层协议开发经验。
 你擅长深入解读开源区块链项目的版本发布说明，能够从技术实现、安全影响、生态系统演进等多个维度进行专业分析。
 请用清晰、专业的中文撰写深度技术分析报告，报告应当结构清晰、逻辑严密，适合区块链技术从业者和节点运营者阅读。`
 
-	deepUserPromptTmpl = `请对以下 %s 的 %s 版本发布内容进行全面深入的技术分析，生成一份专业的 Markdown 格式分析报告。
+	deepUserPromptTmplZH = `请对以下 %s 的 %s 版本发布内容进行全面深入的技术分析，生成一份专业的 Markdown 格式分析报告。
 
 请从以下维度逐一展开分析：
 
@@ -78,6 +79,58 @@ const (
 如果某个维度在本次发布中无相关内容，可以简要说明并跳过。请确保分析准确、专业且有深度。
 
 发布内容：
+%s`
+
+	deepSystemPromptEN = `You are a senior blockchain infrastructure engineer and technical analyst with extensive experience in node operations and low-level protocol development.
+You specialize in providing in-depth analysis of open-source blockchain project release notes, covering multiple dimensions such as technical implementation, security implications, and ecosystem evolution.
+Please write a thorough, professional technical analysis report in clear English. The report should be well-structured, logically rigorous, and suitable for blockchain professionals and node operators.`
+
+	deepUserPromptTmplEN = `Please perform a comprehensive technical analysis of the following %s release %s and generate a professional Markdown analysis report.
+
+Analyze from each of the following dimensions:
+
+1. **Release Overview**
+   - Semantic version analysis (major/minor/patch implications)
+   - Release background and positioning
+
+2. **Core Changes in Detail**
+   - Analyze each key functional change and improvement
+   - Explain the technical background and implementation rationale
+   - Assess the specific impact of each change on system behavior
+
+3. **Performance & Optimization**
+   - Technical details of performance-related improvements
+   - Expected performance gains and applicable scenarios
+   - Impact on resource consumption (CPU, memory, storage, bandwidth)
+
+4. **Security Analysis**
+   - Detailed analysis of security fixes
+   - Vulnerability type, severity, and attack surface assessment
+   - Security posture comparison before and after the fix
+
+5. **Breaking Changes & Migration**
+   - Complete list of breaking changes and impact analysis
+   - Detailed migration guide from previous versions
+   - Configuration file or API change notes
+
+6. **Impact on Node Operators**
+   - Whether an immediate upgrade is required and priority assessment
+   - Upgrade steps and considerations
+   - Rollback plan (if applicable)
+   - Impact on staking/validation/block production
+
+7. **Impact on Developers**
+   - RPC/API interface changes
+   - SDK/library compatibility
+   - Smart contract related changes
+
+8. **Ecosystem Impact & Technical Trends**
+   - Position of this release in the project roadmap
+   - Significance to the broader blockchain ecosystem
+
+If a dimension has no relevant content in this release, briefly note it and skip. Ensure the analysis is accurate, professional, and insightful.
+
+Release content:
 %s`
 )
 
