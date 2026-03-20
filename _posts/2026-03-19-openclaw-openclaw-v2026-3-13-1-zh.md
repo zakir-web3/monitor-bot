@@ -7,7 +7,7 @@ repo: openclaw/openclaw
 tag: v2026.3.13-1
 ---
 
-> [English Version](/2026-03-19-openclaw-openclaw-v2026-3-13-1-en)
+> [English Version]({{ '/openclaw-openclaw-v2026-3-13-1-en/' | relative_url }})
 
 # openclaw/openclaw v2026.3.13-1 版本深度解读
 

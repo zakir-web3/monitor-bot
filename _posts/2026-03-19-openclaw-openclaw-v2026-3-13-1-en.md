@@ -7,7 +7,7 @@ repo: openclaw/openclaw
 tag: v2026.3.13-1
 ---
 
-> [中文版](/2026-03-19-openclaw-openclaw-v2026-3-13-1-zh)
+> [中文版]({{ '/openclaw-openclaw-v2026-3-13-1-zh/' | relative_url }})
 
 # openclaw/openclaw v2026.3.13-1 Deep Dive
 

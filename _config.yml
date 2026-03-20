@@ -1,5 +1,7 @@
 remote_theme: pages-themes/cayman@v0.2.0
 title: AI Reads
 description: AI-powered in-depth technical analysis of open-source project releases
+baseurl: /ai-reads
+permalink: /:title/
 plugins:
   - jekyll-remote-theme
